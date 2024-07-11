@@ -1,3 +1,5 @@
+import { SubmitButton } from "@/components/form/Buttons";
+
 function ProfilePage() {
   return (
     <div>
