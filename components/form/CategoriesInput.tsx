@@ -24,11 +24,11 @@ function CategoriesInput({ defaultValue }: { defaultValue?: string }) {
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          {categories.map((item) => {
+          {categories.map((category) => {
             return (
-              <SelectItem key={item.label} value={item.label}>
+              <SelectItem key={category.label} value={category.label}>
                 <span className='flex items-center gap-2 capitalize'>
-                  <item.icon /> {item.label}
+                  <category.icon /> {category.label}
                 </span>
               </SelectItem>
             );
