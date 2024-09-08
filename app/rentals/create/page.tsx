@@ -3,6 +3,7 @@ import FormInput from "@/components/form/FormInput";
 import FormContainer from "@/components/form/FormContainer";
 import { SubmitButton } from "@/components/form/Buttons";
 import PriceInput from "@/components/form/PriceInput";
+import CategoriesInput from "@/components/form/CategoriesInput";
 
 function CreatePropertyPage() {
   return (
@@ -27,6 +28,7 @@ function CreatePropertyPage() {
             {/* price */}
             <PriceInput />
             {/* categories */}
+            <CategoriesInput />
           </div>
           {/* text area - description input */}
           <SubmitButton text='Create Rental' className='mt-12' />
