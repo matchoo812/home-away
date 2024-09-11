@@ -1,5 +1,6 @@
 import { categories } from "@/utils/categories";
 import { ScrollArea, Scrollbar } from "@radix-ui/react-scroll-area";
+// import * as ScrollArea from "@radix-ui/react-scroll-area";
 import Link from "next/link";
 
 function CategoriesList({
@@ -30,6 +31,7 @@ function CategoriesList({
             );
           })}
         </div>
+
         <Scrollbar orientation='horizontal' />
       </ScrollArea>
     </section>
