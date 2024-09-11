@@ -1,11 +1,6 @@
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-
-type TextAreaInputProps = {
-  name: string;
-  labelText?: string;
-  defaultValue?: string;
-};
+import { TextAreaInputProps } from "../../utils/types";
 
 function TextAreaInput({ name, labelText, defaultValue }: TextAreaInputProps) {
   return (
