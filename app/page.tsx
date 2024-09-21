@@ -1,6 +1,8 @@
 import CategoriesList from "@/components/home/CategoriesList";
 import PropertiesContainer from "@/components/home/PropertiesContainer";
+import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
+import LoadingCards from "@/components/card/LoadingCards";
 
 export default function Home({
   searchParams,
@@ -14,10 +16,12 @@ export default function Home({
         category={searchParams.category}
         search={searchParams.search}
       />
-      <PropertiesContainer
-        category={searchParams.category}
-        search={searchParams.search}
-      />
+      <Suspense fallback={<LoadingCards />}>
+        <PropertiesContainer
+          category={searchParams.category}
+          search={searchParams.search}
+        />
+      </Suspense>
     </section>
   );
 }

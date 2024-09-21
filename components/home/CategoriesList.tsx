@@ -1,6 +1,6 @@
 import { categories } from "@/utils/categories";
-import { ScrollArea, Scrollbar } from "@radix-ui/react-scroll-area";
-// import * as ScrollArea from "@radix-ui/react-scroll-area";
+// import { ScrollArea, Scrollbar } from "@radix-ui/react-scroll-area";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import Link from "next/link";
 
 function CategoriesList({
@@ -14,7 +14,7 @@ function CategoriesList({
 
   return (
     <section>
-      <ScrollArea className='py-6'>
+      <ScrollArea className='py-6 border'>
         <div className='flex gap-x-4'>
           {categories.map((c) => {
             const isActive = c.label === category;
@@ -32,7 +32,7 @@ function CategoriesList({
           })}
         </div>
 
-        <Scrollbar orientation='horizontal' />
+        {/* <ScrollBar orientation='horizontal' /> */}
       </ScrollArea>
     </section>
   );
