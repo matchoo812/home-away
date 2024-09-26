@@ -1,8 +1,11 @@
-import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
-import Breadcrumbs from "@/components/properties/BreadCrumbs";
-import ShareButton from "@/components/properties/ShareButton";
-import { fetchPropertyDetails } from "@/utils/actions";
 import { redirect } from "next/navigation";
+import { fetchPropertyDetails } from "@/utils/actions";
+import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
+import PropertyRating from "@/components/card/PropertyRating";
+import Breadcrumbs from "@/components/properties/BreadCrumbs";
+import ImageContainer from "@/components/properties/ImageContainer";
+import ShareButton from "@/components/properties/ShareButton";
+import BookingCalendar from "@/components/properties/BookingCalendar";
 
 async function PropertyDetailsPage({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -10,7 +13,7 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
 
   if (!property) redirect("/");
 
-  const { name, tagline, baths, bedrooms, beds, guests } = property;
+  const { name, tagline, baths, bedrooms, beds, guests, image } = property;
   const details = { baths, bedrooms, beds, guests };
   return (
     <section>
@@ -22,6 +25,18 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
           <FavoriteToggleButton propertyId={property.id} />
         </div>
       </header>
+      <ImageContainer mainImage={image} name={name} />
+      <section className='lg:grid lg:grid-cols-12 gap-x-12 mt-12'>
+        <div className='lg:col-span-8'>
+          <div className='flex gap-4 items-center'>
+            <h1 className='text-xl font-bold'>{name}</h1>
+            <PropertyRating inPage propertyId={property.id} />
+          </div>
+        </div>
+        <div className='lg:col-span-4 flex flex-col items-center'>
+          <BookingCalendar />
+        </div>
+      </section>
     </section>
   );
 }
