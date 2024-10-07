@@ -6,6 +6,8 @@ import Breadcrumbs from "@/components/properties/BreadCrumbs";
 import ImageContainer from "@/components/properties/ImageContainer";
 import ShareButton from "@/components/properties/ShareButton";
 import BookingCalendar from "@/components/properties/BookingCalendar";
+import PropertyDetails from "@/components/properties/PropertyDetails";
+import UserInfo from "@/components/properties/UserInfo";
 
 async function PropertyDetailsPage({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -15,6 +17,8 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
 
   const { name, tagline, baths, bedrooms, beds, guests, image } = property;
   const details = { baths, bedrooms, beds, guests };
+  const { firstName, profileImage } = property.profile;
+
   return (
     <section>
       <Breadcrumbs name={name} />
@@ -32,6 +36,8 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
             <h1 className='text-xl font-bold'>{name}</h1>
             <PropertyRating inPage propertyId={property.id} />
           </div>
+          <PropertyDetails details={details} />
+          <UserInfo profile={{ firstName, profileImage }} />
         </div>
         <div className='lg:col-span-4 flex flex-col items-center'>
           <BookingCalendar />
