@@ -8,6 +8,9 @@ import ShareButton from "@/components/properties/ShareButton";
 import BookingCalendar from "@/components/properties/BookingCalendar";
 import PropertyDetails from "@/components/properties/PropertyDetails";
 import UserInfo from "@/components/properties/UserInfo";
+import { Separator } from "@/components/ui/separator";
+import Description from "@/components/properties/Description";
+import Amenities from "@/components/properties/Amenities";
 
 async function PropertyDetailsPage({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -15,7 +18,8 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
 
   if (!property) redirect("/");
 
-  const { name, tagline, baths, bedrooms, beds, guests, image } = property;
+  const { name, tagline, baths, bedrooms, beds, guests, image, amenities } =
+    property;
   const details = { baths, bedrooms, beds, guests };
   const { firstName, profileImage } = property.profile;
 
@@ -38,6 +42,9 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
           </div>
           <PropertyDetails details={details} />
           <UserInfo profile={{ firstName, profileImage }} />
+          <Separator className='mt-4' />
+          <Description description={property.description} />
+          <Amenities amenities={amenities} />
         </div>
         <div className='lg:col-span-4 flex flex-col items-center'>
           <BookingCalendar />
