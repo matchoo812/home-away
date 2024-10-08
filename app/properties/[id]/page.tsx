@@ -1,16 +1,23 @@
 import { redirect } from "next/navigation";
+import dynamic from "next/dynamic";
 import { fetchPropertyDetails } from "@/utils/actions";
 import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
 import PropertyRating from "@/components/card/PropertyRating";
-import Breadcrumbs from "@/components/properties/BreadCrumbs";
-import ImageContainer from "@/components/properties/ImageContainer";
-import ShareButton from "@/components/properties/ShareButton";
+import Amenities from "@/components/properties/Amenities";
 import BookingCalendar from "@/components/properties/BookingCalendar";
+import Breadcrumbs from "@/components/properties/BreadCrumbs";
+import Description from "@/components/properties/Description";
+import ImageContainer from "@/components/properties/ImageContainer";
 import PropertyDetails from "@/components/properties/PropertyDetails";
+import ShareButton from "@/components/properties/ShareButton";
 import UserInfo from "@/components/properties/UserInfo";
 import { Separator } from "@/components/ui/separator";
-import Description from "@/components/properties/Description";
-import Amenities from "@/components/properties/Amenities";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const DynamicMap = dynamic(() => import("@/components/properties/PropertyMap"), {
+  ssr: false,
+  loading: () => <Skeleton className='h-[400px] w-full' />,
+});
 
 async function PropertyDetailsPage({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -18,8 +25,18 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
 
   if (!property) redirect("/");
 
-  const { name, tagline, baths, bedrooms, beds, guests, image, amenities } =
-    property;
+  const {
+    amenities,
+    bedrooms,
+    beds,
+    baths,
+    country,
+    description,
+    guests,
+    image,
+    name,
+    tagline,
+  } = property;
   const details = { baths, bedrooms, beds, guests };
   const { firstName, profileImage } = property.profile;
 
@@ -43,8 +60,9 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
           <PropertyDetails details={details} />
           <UserInfo profile={{ firstName, profileImage }} />
           <Separator className='mt-4' />
-          <Description description={property.description} />
+          <Description description={description} />
           <Amenities amenities={amenities} />
+          <DynamicMap countryCode={country} />
         </div>
         <div className='lg:col-span-4 flex flex-col items-center'>
           <BookingCalendar />
