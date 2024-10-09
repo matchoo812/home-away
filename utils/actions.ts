@@ -260,3 +260,17 @@ export const fetchPropertyDetails = async (id: string) => {
     },
   });
 };
+
+// ================= Reviews actions =================== //
+export const createReview = async () => {
+  return { message: "create review" };
+};
+export const fetchPropertyReviews = async () => {
+  return { message: "fetch reviews" };
+};
+export const fetchPropertyReviewsByUser = async () => {
+  return { message: "fetch user reviews" };
+};
+export const deleteReview = async () => {
+  return { message: "fetch user reviews" };
+};
