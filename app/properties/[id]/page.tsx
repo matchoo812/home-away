@@ -14,6 +14,7 @@ import UserInfo from "@/components/properties/UserInfo";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import SubmitReview from "@/components/reviews/SubmitReview";
+import PropertyReview from "@/components/reviews/PropertyReview";
 
 const DynamicMap = dynamic(() => import("@/components/properties/PropertyMap"), {
   ssr: false,
@@ -70,6 +71,7 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
         </div>
       </section>
       <SubmitReview propertyId={property.id} />
+      <PropertyReview propertyId={property.id} />
     </section>
   );
 }
