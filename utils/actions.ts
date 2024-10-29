@@ -315,7 +315,7 @@ export const fetchPropertyReviewsByUser = async () => {
   return reviews;
 };
 
-export const deleteReview = async (prevState: { reviewId: string }) => {
+export const deleteReviewAction = async (prevState: { reviewId: string }) => {
   const { reviewId } = prevState;
   const user = await getAuthUser();
 

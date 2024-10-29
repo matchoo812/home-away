@@ -8,6 +8,7 @@ function ReviewCard({ reviewInfo, children }: ReviewCardProps) {
     <Card className='relative'>
       <CardHeader>
         <div className='flex items-center'>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={reviewInfo.image}
             alt='profile'
