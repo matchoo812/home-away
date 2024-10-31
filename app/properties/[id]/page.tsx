@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 import dynamic from "next/dynamic";
+import { auth } from "@clerk/nextjs/server";
 import { fetchPropertyDetails, findExistingReview } from "@/utils/actions";
 import FavoriteToggleButton from "@/components/card/FavoriteToggleButton";
 import PropertyRating from "@/components/card/PropertyRating";
 import Amenities from "@/components/properties/Amenities";
-import BookingCalendar from "@/components/properties/BookingCalendar";
 import Breadcrumbs from "@/components/properties/BreadCrumbs";
 import Description from "@/components/properties/Description";
 import ImageContainer from "@/components/properties/ImageContainer";
@@ -15,12 +15,16 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import SubmitReview from "@/components/reviews/SubmitReview";
 import PropertyReview from "@/components/reviews/PropertyReview";
-import { auth } from "@clerk/nextjs/server";
 
 const DynamicMap = dynamic(() => import("@/components/properties/PropertyMap"), {
   ssr: false,
   loading: () => <Skeleton className='h-[400px] w-full' />,
 });
+
+const DynamicBookingWrapper = dynamic(
+  () => import("@/components/booking/BookingWrapper"),
+  { ssr: false, loading: () => <Skeleton className='h-[200px] w-full' /> }
+);
 
 async function PropertyDetailsPage({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -33,11 +37,13 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
     bedrooms,
     beds,
     baths,
+    bookings,
     country,
     description,
     guests,
     image,
     name,
+    price,
     tagline,
   } = property;
   const details = { baths, bedrooms, beds, guests };
@@ -73,7 +79,12 @@ async function PropertyDetailsPage({ params }: { params: { id: string } }) {
           <DynamicMap countryCode={country} />
         </div>
         <div className='lg:col-span-4 flex flex-col items-center'>
-          <BookingCalendar />
+          {/* booking calendar */}
+          <DynamicBookingWrapper
+            propertyId={property.id}
+            price={price}
+            bookings={bookings}
+          />
         </div>
       </section>
       {canAddReview && <SubmitReview propertyId={property.id} />}

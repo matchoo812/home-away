@@ -43,3 +43,20 @@ export type ReviewCardProps = {
   };
   children?: React.ReactNode;
 };
+
+export type DateRangeSelect = {
+  startDate: Date;
+  endDate: Date;
+  key: string;
+};
+
+export type Booking = {
+  checkIn: Date;
+  checkOut: Date;
+};
+
+export type BookingWrapperProps = {
+  propertyId: string;
+  price: number;
+  bookings: Booking[];
+};
