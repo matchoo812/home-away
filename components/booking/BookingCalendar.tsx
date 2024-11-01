@@ -15,8 +15,31 @@ import {
 function BookingCalendar() {
   const currentDate = new Date();
   const [range, setRange] = useState<DateRange | undefined>(defaultSelected);
+  const bookings = useProperty((state) => state.bookings);
+  // console.log(bookings);
+  const { toast } = useToast();
+
+  const blockedPeriods = generateBlockedPeriods({
+    bookings,
+    today: currentDate,
+  });
+
+  const unavailableDates = generateDisabledDates(blockedPeriods);
+  console.log(unavailableDates);
 
   useEffect(() => {
+    const selectedRange = generateDateRange(range);
+    const isDisabledDateIncluded = selectedRange.some((date) => {
+      if (unavailableDates[date]) {
+        setRange(defaultSelected);
+        toast({
+          description: "Some dates are already booked. Please select again.",
+        });
+        return true;
+      }
+      return false;
+    });
+
     useProperty.setState({ range });
   }, [range]);
 
@@ -26,6 +49,7 @@ function BookingCalendar() {
       defaultMonth={currentDate}
       selected={range}
       onSelect={setRange}
+      disabled={blockedPeriods}
       className='mb-2'
     />
   );
