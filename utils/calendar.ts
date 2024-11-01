@@ -84,7 +84,7 @@ export function calculateDaysBetween({
   const diffInMs = Math.abs(checkOut.getTime() - checkIn.getTime());
 
   // Convert the difference in milliseconds to days
-  const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+  const diffInDays = Math.floor(diffInMs / 86400000); // 1000 * 60 * 60 * 24
 
   return diffInDays;
 }
